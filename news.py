@@ -48,7 +48,7 @@ def get_errors():
     c = db.cursor()
     query = ("SELECT t1.date, ((t1.count * 100) / t2.count) as percentage \
             FROM (SELECT date(time) as date, COUNT(status) as count \
-            FROM log WHERE status LIKE '%4%' GROUP BY date(time)) as t1, \
+            FROM log WHERE status LIKE '%404%' GROUP BY date(time)) as t1, \
             (SELECT date(time) as date, COUNT(status) as count \
             FROM log GROUP BY date(time)) as t2 \
             WHERE t1.date = t2.date and ((t1.count * 100) / t2.count) > 1")
@@ -64,7 +64,7 @@ def display_error(x):
         month = datetime.date(1900, error_day[0].month, 1).strftime('%B')
         day = error_day[0].day
         print(month + ' ' + str(day) + ', ' + str(year) +
-              ' - ' + str(error_day[1]) + '% errors')
+              ' - ' + str(round(error_day[1])) + '% errors')
 
 
 print "The Most Popular Three Articles of All Time:"
